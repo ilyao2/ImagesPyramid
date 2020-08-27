@@ -10,6 +10,8 @@ private:
     QLabel* label;
 public:
     QLabelImageViewer(QLabel* label);
+    QLabelImageViewer(const QLabelImageViewer&);
+
     void ViewImage(const QImage& img) override;
 
 };

@@ -21,7 +21,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionUpload_triggered()
 {
-    QString path = QFileDialog::getOpenFileName(this, "Выбери!!!", "", "Images (*.png *.jpg)");
+    QString path = QFileDialog::getOpenFileName(this, "Выберите изображение", "", "Images (*.png *.jpg)");
     if (!path.isNull())
     {
         QImage image(path);
