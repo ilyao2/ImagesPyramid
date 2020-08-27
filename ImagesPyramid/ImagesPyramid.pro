@@ -17,10 +17,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    qlabelimageviewer.cpp
 
 HEADERS += \
-    mainwindow.h
+    ImageViewer.h \
+    mainwindow.h \
+    qlabelimageviewer.h
 
 FORMS += \
     mainwindow.ui

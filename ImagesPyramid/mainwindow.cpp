@@ -6,11 +6,13 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    imageViewer = new QLabelImageViewer(ui->imageLabel);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete imageViewer;
 }
 
 
@@ -20,6 +22,6 @@ void MainWindow::on_actionUpload_triggered()
     if (!path.isNull())
     {
         QImage image(path);
-        ui->imageLabel->setPixmap(QPixmap::fromImage(image));
+        imageViewer->ViewImage(image);
     }
 }
