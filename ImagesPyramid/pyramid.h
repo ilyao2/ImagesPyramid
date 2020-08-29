@@ -11,10 +11,10 @@ private:
     QImage* rootImage;
     QList<QImage*> images;
     int layersCount = 0;
-    int K = 2;
+    float K = 2;
     void Clear();
 public:
-    Pyramid(QImage&, int k = 2);
+    Pyramid(QImage&, float k = 2);
     Pyramid(const Pyramid&);
     ~Pyramid();
     const QImage& getLayer(int id);

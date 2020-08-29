@@ -40,7 +40,7 @@ void MainWindow::on_actionUpload_triggered()
         {
             QString path = urlList[i].path().remove(0,1);
             QImage image(path);
-            Pyramid* tempPyramid = new Pyramid(image);
+            Pyramid* tempPyramid = new Pyramid(image, ui->coeffSpinBox->value());
             PyramidsNames[tempPyramid] = urlList[i].fileName();
             pyramids.append(tempPyramid);
             std::sort(pyramids.begin(), pyramids.end(), CompPyramids);

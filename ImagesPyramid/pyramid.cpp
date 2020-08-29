@@ -1,6 +1,6 @@
 #include "pyramid.h"
 
-Pyramid::Pyramid(QImage& img, int k)
+Pyramid::Pyramid(QImage& img, float k)
 {
     if(k <= 1)
         throw std::out_of_range("The coefficient must be greater than 1");
