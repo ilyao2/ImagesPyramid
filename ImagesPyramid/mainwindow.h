@@ -28,6 +28,6 @@ private:
     Ui::MainWindow *ui;
     ImageViewer *imageViewer;
 
-    Pyramid* p = nullptr;
+    Pyramid* pyramid = nullptr;
 };
 #endif // MAINWINDOW_H
