@@ -1,18 +1,21 @@
 #include "pyramid.h"
 #include <QDebug>
 
-Pyramid::Pyramid(QImage& img)
+Pyramid::Pyramid(QImage& img, int k)
 {
-    const int K = 2;
+    if(k <= 1)
+        throw std::out_of_range("The coefficient must be greater than 1");
+    K = k;
+    rootImage = new QImage(img);
 
     int lowSize = (img.width() < img.height()) ? img.width() : img.height();
 
-    layersCount = floor(log(lowSize) / log(K));
+    layersCount = floor(log(lowSize) / log(K)) + 1;
+    qDebug() << lowSize << layersCount;
 
     for (int i = 0; i < layersCount; i++)
     {
-        QImage* temp;
-        temp = new QImage(img.scaled(img.width()/(i+1), img.height()/(i+1)));
+        QImage* temp = nullptr;
         images.append(temp);
     }
 }
@@ -29,14 +32,20 @@ Pyramid::Pyramid(const Pyramid& obj)
 Pyramid::~Pyramid()
 {
     Clear();
+    images.clear();
+    if (rootImage != nullptr)
+        delete rootImage;
 }
 
 void Pyramid::Clear()
 {
     for(int i = 0; i<layersCount; i++)
     {
-        delete images.back();
-        images.pop_back();
+        if (images[i] != nullptr)
+        {
+            delete images[i];
+            images[i] = nullptr;
+        }
     }
 }
 
@@ -44,5 +53,12 @@ const QImage& Pyramid::getLayer(int id)
 {
     if (id < 0 || id >= layersCount)
         throw std::out_of_range("Out of range");
+    if (images[id] == nullptr)
+        images[id] = new QImage(rootImage->scaled(rootImage->width()/pow(K,id), rootImage->height()/pow(K,id)));
     return *images.at(id);
+}
+
+const QImage& Pyramid::getRootImage()
+{
+    return *rootImage;
 }
