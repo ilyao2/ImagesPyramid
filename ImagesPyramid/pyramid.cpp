@@ -1,5 +1,4 @@
 #include "pyramid.h"
-#include <QDebug>
 
 Pyramid::Pyramid(QImage& img, int k)
 {
@@ -11,7 +10,6 @@ Pyramid::Pyramid(QImage& img, int k)
     int lowSize = (img.width() < img.height()) ? img.width() : img.height();
 
     layersCount = floor(log(lowSize) / log(K)) + 1;
-    qDebug() << lowSize << layersCount;
 
     for (int i = 0; i < layersCount; i++)
     {
