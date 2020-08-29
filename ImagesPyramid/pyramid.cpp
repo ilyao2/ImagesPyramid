@@ -56,7 +56,7 @@ const QImage& Pyramid::getLayer(int id)
     return *images.at(id);
 }
 
-const QImage& Pyramid::getRootImage()
+const QImage& Pyramid::getRootImage() const
 {
     return *rootImage;
 }

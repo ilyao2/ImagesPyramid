@@ -28,6 +28,9 @@
         <number>20</number>
        </property>
        <item>
+        <widget class="QComboBox" name="fileComboBox"/>
+       </item>
+       <item>
         <widget class="QComboBox" name="layersComboBox"/>
        </item>
        <item>
@@ -51,7 +54,7 @@
          <x>0</x>
          <y>0</y>
          <width>780</width>
-         <height>507</height>
+         <height>491</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">

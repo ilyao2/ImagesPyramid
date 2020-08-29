@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QPixmap>
+#include <QMap>
 #include "qlabelimageviewer.h"
 #include "pyramid.h"
 
@@ -24,10 +25,16 @@ private slots:
 
     void on_layersComboBox_currentIndexChanged(int index);
 
+    void on_fileComboBox_currentIndexChanged(int index);
+
 private:
     Ui::MainWindow *ui;
     ImageViewer *imageViewer;
 
-    Pyramid* pyramid = nullptr;
+    QList<Pyramid*> pyramids;
+    QMap<Pyramid*, QString> PyramidsNames;
+
+
+    static bool CompPyramids(const Pyramid*, const Pyramid*);
 };
 #endif // MAINWINDOW_H
