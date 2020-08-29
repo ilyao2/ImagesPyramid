@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include <QPixmap>
 #include <QMap>
+#include <QSpinBox>
 #include "qlabelimageviewer.h"
 #include "pyramid.h"
 
