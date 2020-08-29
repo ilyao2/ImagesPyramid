@@ -33,15 +33,24 @@ void MainWindow::on_actionUpload_triggered()
                 delete p;
         }
         pyramids.clear();
+        PyramidsNames.clear();
+
+
         for(int i = 0; i < urlList.length(); i++)
         {
-            QImage image(urlList[i].path().remove(0,1));
-            pyramids.append(new Pyramid(image));
+            QString path = urlList[i].path().remove(0,1);
+            QImage image(path);
+            Pyramid* tempPyramid = new Pyramid(image);
+            PyramidsNames[tempPyramid] = urlList[i].fileName();
+            pyramids.append(tempPyramid);
+            std::sort(pyramids.begin(), pyramids.end(), CompPyramids);
         }
+
+
         ui->fileComboBox->clear();
         for (int i = 0; i < pyramids.length(); i++)
         {
-            ui->fileComboBox->addItem(urlList[i].fileName(), i);
+            ui->fileComboBox->addItem(PyramidsNames[pyramids[i]], i);
         }
     }
 }
@@ -64,4 +73,13 @@ void MainWindow::on_fileComboBox_currentIndexChanged(int index)
     {
         ui->layersComboBox->addItem("Layer: " + QString::number(i),i);
     }
+}
+
+bool MainWindow::CompPyramids(const Pyramid* p1, const Pyramid* p2)
+{
+    const QImage& img1 = p1->getRootImage();
+    const QImage& img2 = p2->getRootImage();
+    int d1 = img1.width()*img1.width() + img1.height()*img1.height();
+    int d2 = img2.width()*img2.width() + img2.height()*img2.height();
+    return d1 < d2;
 }

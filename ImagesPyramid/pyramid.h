@@ -18,7 +18,7 @@ public:
     Pyramid(const Pyramid&);
     ~Pyramid();
     const QImage& getLayer(int id);
-    const QImage& getRootImage();
+    const QImage& getRootImage() const;
     int getLayersCount();
 
 

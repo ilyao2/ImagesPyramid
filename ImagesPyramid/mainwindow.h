@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QPixmap>
+#include <QMap>
 #include "qlabelimageviewer.h"
 #include "pyramid.h"
 
@@ -31,5 +32,9 @@ private:
     ImageViewer *imageViewer;
 
     QList<Pyramid*> pyramids;
+    QMap<Pyramid*, QString> PyramidsNames;
+
+
+    static bool CompPyramids(const Pyramid*, const Pyramid*);
 };
 #endif // MAINWINDOW_H
