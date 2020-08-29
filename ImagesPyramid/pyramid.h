@@ -19,6 +19,7 @@ public:
     ~Pyramid();
     const QImage& getLayer(int id);
     const QImage& getRootImage();
+    int getLayersCount();
 
 
 

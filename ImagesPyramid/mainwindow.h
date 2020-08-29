@@ -22,10 +22,12 @@ public:
 private slots:
     void on_actionUpload_triggered();
 
+    void on_layersComboBox_currentIndexChanged(int index);
+
 private:
     Ui::MainWindow *ui;
     ImageViewer *imageViewer;
 
-    Pyramid* p = nullptr;
+    Pyramid* pyramid = nullptr;
 };
 #endif // MAINWINDOW_H
