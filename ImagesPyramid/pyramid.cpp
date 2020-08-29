@@ -52,7 +52,7 @@ const QImage& Pyramid::getLayer(int id)
     if (id < 0 || id >= layersCount)
         throw std::out_of_range("Out of range");
     if (images[id] == nullptr)
-        images[id] = new QImage(rootImage->scaled(rootImage->width()/pow(K,id), rootImage->height()/pow(K,id)));
+        images[id] = new QImage(rootImage->scaled(rootImage->width()/pow(K,id), rootImage->height()/pow(K,id), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     return *images.at(id);
 }
 

@@ -40,6 +40,6 @@ void MainWindow::on_layersComboBox_currentIndexChanged(int index)
 {
     int layerId = ui->layersComboBox->itemData(index).toInt();
     const QImage& layer = pyramid->getLayer(layerId);
-    imageViewer->ViewImage(layer);
+    imageViewer->ViewImage(layer.scaled(pyramid->getRootImage().size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     ui->sizeLabel->setText("Size: " + QString::number(layer.width()) + "x" + QString::number(layer.height()));
 }
