@@ -25,7 +25,21 @@ void MainWindow::on_actionUpload_triggered()
     if (!path.isNull())
     {
         QImage image(path);
+        if(p!=nullptr)
+            delete p;
         p = new Pyramid(image);
-        imageViewer->ViewImage(p->getLayer(0));
+        ui->layersComboBox->clear();
+        for (int i = 0; i < p->getLayersCount(); i++)
+        {
+            ui->layersComboBox->addItem("Layer: " + QString::number(i),i);
+        }
     }
+}
+
+void MainWindow::on_layersComboBox_currentIndexChanged(int index)
+{
+    int layerId = ui->layersComboBox->itemData(index).toInt();
+    const QImage& layer = p->getLayer(layerId);
+    imageViewer->ViewImage(layer);
+    ui->sizeLabel->setText("Size: " + QString::number(layer.width()) + "x" + QString::number(layer.height()));
 }

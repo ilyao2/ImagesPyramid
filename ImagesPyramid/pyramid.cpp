@@ -60,3 +60,8 @@ const QImage& Pyramid::getRootImage()
 {
     return *rootImage;
 }
+
+int Pyramid::getLayersCount()
+{
+    return layersCount;
+}
