@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include <QPixmap>
 #include "qlabelimageviewer.h"
+#include "pyramid.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,5 +25,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     ImageViewer *imageViewer;
+
+    Pyramid* p = nullptr;
 };
 #endif // MAINWINDOW_H

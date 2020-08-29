@@ -6,7 +6,7 @@
 class ImageViewer
 {
 public:
-    virtual void ViewImage(QImage&) = 0;
+    virtual void ViewImage(const QImage&) = 0;
     virtual ~ImageViewer() = default;
 };
 #endif // IMAGEVIEWER_H
