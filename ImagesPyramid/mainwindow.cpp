@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include <QDebug>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -14,24 +14,34 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete imageViewer;
-    if (pyramid != nullptr)
-        delete pyramid;
+    for (Pyramid* p : pyramids)
+    {
+        if (p != nullptr)
+            delete p;
+    }
 }
 
 
 void MainWindow::on_actionUpload_triggered()
 {
-    QString path = QFileDialog::getOpenFileName(this, "Выберите изображение", "", "Images (*.png *.jpg)");
-    if (!path.isNull())
+    QList<QUrl> urlList = QFileDialog::getOpenFileUrls(this, "Выберите изображение", QUrl(), "Images (*.png *.jpg)");
+    if (!urlList.isEmpty())
     {
-        QImage image(path);
-        if(pyramid!=nullptr)
-            delete pyramid;
-        pyramid = new Pyramid(image);
-        ui->layersComboBox->clear();
-        for (int i = 0; i < pyramid->getLayersCount(); i++)
+        for (Pyramid* p : pyramids)
         {
-            ui->layersComboBox->addItem("Layer: " + QString::number(i),i);
+            if (p != nullptr)
+                delete p;
+        }
+        pyramids.clear();
+        for(int i = 0; i < urlList.length(); i++)
+        {
+            QImage image(urlList[i].path().remove(0,1));
+            pyramids.append(new Pyramid(image));
+        }
+        ui->fileComboBox->clear();
+        for (int i = 0; i < pyramids.length(); i++)
+        {
+            ui->fileComboBox->addItem(urlList[i].fileName(), i);
         }
     }
 }
@@ -39,7 +49,19 @@ void MainWindow::on_actionUpload_triggered()
 void MainWindow::on_layersComboBox_currentIndexChanged(int index)
 {
     int layerId = ui->layersComboBox->itemData(index).toInt();
-    const QImage& layer = pyramid->getLayer(layerId);
-    imageViewer->ViewImage(layer.scaled(pyramid->getRootImage().size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    int pyramidId = ui->fileComboBox->currentData().toInt();
+    const QImage& layer = pyramids[pyramidId]->getLayer(layerId);
+
+    imageViewer->ViewImage(layer.scaled(pyramids[pyramidId]->getRootImage().size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     ui->sizeLabel->setText("Size: " + QString::number(layer.width()) + "x" + QString::number(layer.height()));
+}
+
+void MainWindow::on_fileComboBox_currentIndexChanged(int index)
+{
+    int pyramidId = ui->fileComboBox->itemData(index).toInt();
+    ui->layersComboBox->clear();
+    for (int i = 0; i < pyramids[pyramidId]->getLayersCount(); i++)
+    {
+        ui->layersComboBox->addItem("Layer: " + QString::number(i),i);
+    }
 }

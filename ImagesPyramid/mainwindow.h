@@ -24,10 +24,12 @@ private slots:
 
     void on_layersComboBox_currentIndexChanged(int index);
 
+    void on_fileComboBox_currentIndexChanged(int index);
+
 private:
     Ui::MainWindow *ui;
     ImageViewer *imageViewer;
 
-    Pyramid* pyramid = nullptr;
+    QList<Pyramid*> pyramids;
 };
 #endif // MAINWINDOW_H
